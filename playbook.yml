@@ -1,0 +1,17 @@
+---
+- name: Copy dockerfile from ansible control node to managed node docker
+  hosts: DOCKER
+  become: true
+
+  tasks:
+    - name: Copy dockerfile
+      copy:
+        src: Dockerfile
+        dest: /home/ansible
+    - name: Copy Project Artifacts
+      copy:
+        src: target
+        dest: /home/ansible
+    - name: Build Docker Image
+      command: docker build -t umapathyg/mavenwebapp .
+...
